@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device=width, intial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8" name="description" content= "Walk the Plank | Pirate Bar">
 	<title>Walk the Plank | Pirate Bar</title>
 	<link rel=stylesheet" type="text/css" href="css/main.css">
@@ -13,8 +13,8 @@
 		<div class="welcome_panel">
 			<p class="welcome">Avast ye scurvy curs and welcome to Walk the Plank.  If you've got what it takes to stare down Davy Jones' and laugh in his salty ol' face, then step up t' the plank and name yer poison!</p>
 			<!--button will start the series of questions to combine ingredients for drink-->
-			<form class="start_questions">
-				<button class="start_button">Mix me Grog!</button>
+			<form name="start_mixing" class="start_questions">
+				<button class="start_button">What'll ye be drinkin'?</button>
 			</form>
 		</div>
 <!--questions_page presents with a list of choices for user to make regarding drink aspects-->
@@ -22,7 +22,7 @@
 		<h3><span class="question_text"></span></h3>
 		<form name="current_question">
 			<ol class="choices"></ol>
-			<button type="submit" class="submit_choice">Splice the mainbrace!</button>
+			<button type="submit" class="submit_choice">Mix me Grog!</button>
 		</form>
 	</div>
 <!--drinks_page displays mixed drink name and recipe.  Provides button to mix another drink-->
