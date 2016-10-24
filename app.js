@@ -1,10 +1,14 @@
 "use strict"
+//app will ask a series of questions.  For each answer provided by user,
+//app will chose and store a random ingredient for each type of mixer 
+//all stored ingredients will be returned in the drink_page as a recipe for the drink
+//app will chose random name for returned drink recipe - list of names currently located on drink_names.md
 //state of the app
 var state = {
 	questions:[
 	{
 		text: "Which friend are ye drinking with tonight?",
-		choices: ["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing thorugh on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"],
+		choices: ["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"],
 	},
 	{	
 		text: "Do ye like yer drinks on the rocks or frozen?",
@@ -15,7 +19,7 @@ var state = {
 		choices: ["Aye!", "I think I'm sweet enough"],
 	},
 	{
-		text: "Would you like your grog with a salty tang?",
+		text: "Would ye like yer grog with a salty tang?",
 		choices: ["Aye, I like me drinks like a like me sea!", "No! I've had quite enough bilgewater, thank you."],
 	},
 	{
@@ -34,6 +38,10 @@ var state = {
 		"Dram of Whiskey", 
 		"Pour of Vodka", 
 		"Spritz of Soda"
+	],
+	rocksOrFrozen: [
+		"On the rocks",
+		"Frozen"
 	],
 	sweetIngredients: [
 		"Drop of pineapple juice", 
@@ -60,9 +68,10 @@ var state = {
 	],
 
 	route: "start",
-	currentQuestionIndex: 0;
-	mixerRandom: 0;
-}
+	currentQuestionIndex: 0,
+	mixerRandom: 0,
+	drinkName: ""
+};
 
 //constructor functions
 
@@ -106,15 +115,40 @@ function nextQuestion(state) {
 	else {
 		setRoute(state, "question");
 	}
-}
+};
 
 //render functions
-
-//function renderStartPage() {};
-
-//function renderQuestionsPage() {};
-
-//function renderDrinkPage() {};
+//renderApp defaults to hide all routes and shows only the current route
+function renderApp(state, elements) {
+	object.keys(elements).forEach(function(route) {
+		elements[route].hide();
+	});
+	elements[state.route].show();
+	if(state.route === "start") {
+		renderStartPage(state, elements[state.route]);
+	}
+	else if (state.route === "question") {
+		renderQuestionsPage(state, elements[state.route]);
+	}
+	else if (state.route === "drink") {
+		renderDrinkPage(state, elements[state.route]);
+	}
+};
+//renders the start_page - should be loaded in HTML
+function renderStartPage() {
+	setRoute(state, "start");
+};
+//renders the question text and the choices for user
+function renderQuestionsPage() {
+	renderQuestionText(state, element.find(".question_text"));
+	renderChoices(state, element.find(".choices"));
+};
+//function renders the drink page once all questions hae been asked and answer
+function renderDrinkPage(state, element) {
+	var text = "Yer drink be ready.  Here's yer" + drinkName + ", ya parrot-lovin' scoundrel.  " ;
+	//variables to represent all the stored mixers  - "It's made with,"+ mixer1, mixer2, mixer3, +" with a " + mixer4 + " and a " + mixer5 + ".";
+	element.text(text);
+};
 
 //function renderQuestionText() {};  
 
