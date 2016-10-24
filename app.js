@@ -147,11 +147,25 @@ function renderDrinkPage(state, element) {
 	//variables to represent all the stored mixers  - "It's made with,"+ liquorMixer, iceMixer, sweetMixer, saltyMixer, +" with a " + bitterMixer + " and a " + garnishMixer + ".";
 	element.text(text);
 };
-
-//function renderQuestionText() {};  
+//function renders the text that appears as the questions asked by the bartender
+function renderQuestionText(state, element) {
+	var currentQuestionText = state.questions[state.currentQuestionIndex];
+	element.text(currentQuestionText);
+};  
 
 	//write the html for the input
-//function renderChoices() {};  
+function renderChoices(state, element) {
+	var currentQuestion = state.questions[state.currentQuestionIndex];
+	var choices = currentQuestion.choices.map(function(choice, index) {
+		return (
+			"<li>" +
+				"<input type='radio' name='user_answer' value='" + index + "'required>" +
+				"<label>" + choice + "</label></input>" +
+			"</li>"
+		);
+	});
+	element.html(choices);
+};  
 
 	//changes text to be displayed in the next question button based on whether bartender has additional questions or drink is ready to be mixed
 //function renderNextButtonText(state, element) {
