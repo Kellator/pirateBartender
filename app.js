@@ -70,7 +70,13 @@ var state = {
 	route: "start",
 	currentQuestionIndex: 0,
 	mixerRandom: 0,
-	drinkName: ""
+	drinkName: "",
+	liquorMixer: "",
+	iceMixer: "",
+	sweetMixer: "",
+	saltyMixer: "",
+	bitterMixer: "",
+	garnishMixer: ""
 };
 
 //constructor functions
@@ -83,7 +89,6 @@ function questions(text, choices) {
 //ingredients constuctor function
 function ingredients(mixers) {
 	this.mixers = mixers;
-	console.log(mixers);
 };
 //pantry constructor function
 function pantry(supplies) {
@@ -146,7 +151,7 @@ function renderQuestionsPage() {
 //function renders the drink page once all questions hae been asked and answer
 function renderDrinkPage(state, element) {
 	var text = "Yer drink be ready.  Here's yer" + drinkName + ", ya parrot-lovin' scoundrel.  " ;
-	//variables to represent all the stored mixers  - "It's made with,"+ mixer1, mixer2, mixer3, +" with a " + mixer4 + " and a " + mixer5 + ".";
+	//variables to represent all the stored mixers  - "It's made with,"+ liquorMixer, iceMixer, sweetMixer, saltyMixer, +" with a " + bitterMixer + " and a " + garnishMixer + ".";
 	element.text(text);
 };
 
