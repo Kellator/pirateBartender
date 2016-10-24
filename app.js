@@ -6,66 +6,59 @@
 //state of the app
 var state = {
 	questions:[
-	{
-		text: "Which friend are ye drinking with tonight?",
-		choices: ["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"],
-	},
-	{	
-		text: "Do ye like yer drinks on the rocks or frozen?",
-		choices: ["On the rocks, just like me ol' ship", "I'll take me grog frozen like me heart."],
-	},
-	{
-		text: "Will ye be having a wee bit o' sweetness in your grog this evening?",
-		choices: ["Aye!", "I think I'm sweet enough"],
-	},
-	{
-		text: "Would ye like yer grog with a salty tang?",
-		choices: ["Aye, I like me drinks like a like me sea!", "No! I've had quite enough bilgewater, thank you."],
-	},
-	{
-		text: "Would you be a Son of a Biscuit Eater who be likin' 'is drinks a bit bitter?",
-		choices: ["Aye, you know me well", "Bitter, aye perhaps I am, but not for me drink"],
-	},
-	{
-		text: "Are ye a scallywag who likes a little extra booty to decorate yer drink?",
-		choices: ["Aye. load 'er up!", "No! Don't you be scuttlin' me drink with your garrrrnishes!"],
-	},
-	],
+		new Question("Which friend are ye drinking with tonight?",
+			["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"]),
+
+		new Question("Do ye like yer drinks on the rocks or frozen?",
+ 			["On the rocks, just like me ol' ship", "I'll take me grog frozen like me heart."]),
+
+		new Question("Will ye be having a wee bit o' sweetness in your grog this evening?",
+			["Aye!", "I think I'm sweet enough"]),
+
+		new Question("Would ye like yer grog with a salty tang?",
+			["Aye, I like me drinks like a like me sea!", "No! I've had quite enough bilgewater, thank you."]),
+
+		new Question("Would you be a Son of a Biscuit Eater who be likin' 'is drinks a bit bitter?",
+			["Aye, you know me well", "Bitter, aye perhaps I am, but not for me drink"]),
+
+		new Question("Are ye a scallywag who likes a little extra booty to decorate yer drink?",
+			["Aye. load 'er up!", "No! Don't you be scuttlin' me drink with your garrrrnishes!"]),
+
 //lists of mixer ingredients for each question 
-	liquorIngredients: [
+	liquorIngredients: new Ingredients([
 		"Swig of Rum", 
 		"Shot of Tequila", 
 		"Dram of Whiskey", 
 		"Pour of Vodka", 
 		"Spritz of Soda"
-	],
-	rocksOrFrozen: [
+	]),
+	rocksOrFrozen: new Ingredients([
 		"On the rocks",
 		"Frozen"
-	],
-	sweetIngredients: [
+	]),
+	sweetIngredients: new Ingredients([
 		"Drop of pineapple juice", 
 		"Squeeze of orange juice", 
 		"Drizzle of raspberry puree swirl", 
 		"Bit of coconut liqueur", 
 		"Splash of sweet and sour mix"
-	],
-	saltyIngredients: [
+	]),
+	saltyIngredients: new Ingredients([
 		"Olive on a tiny sword", 
 		"Salt-rimmed glass", 
 		"Pickle brine"
-	],
-	bitterIngredients: [
+	]),
+	bitterIngredients: new Ingredients([
 		"Shake of bitters", 
 		"Squirt of tonic", 
 		"Twist of Lemon"
-	],
-	garnishIngredients: [
+	]),
+	garnishIngredients: new Ingredients([
 		"Wedge of lime", 
 		"Slice of orange", 
 		"A cherry on top", 
 		"Swizzle straw"
-	],
+	]),
 
 	route: "start",
 	currentQuestionIndex: 0,
@@ -82,16 +75,16 @@ var state = {
 //constructor functions
 
 //questions constructor function (does this need to have index as an argument too?)
-function questions(text, choices) {
+function Question(text, choices) {
 	this.text = text;
 	this.choices = choices;
 };
 //ingredients constuctor function
-function ingredients(mixers) {
+function Ingredients(mixers) {
 	this.mixers = mixers;
 };
 //pantry constructor function
-function pantry(supplies) {
+function Pantry(supplies) {
 	this.supplies = supplies;
 };
 
