@@ -23,7 +23,7 @@ var state = {
 
 		new Question("Are ye a scallywag who likes a little extra booty to decorate yer drink?",
 			["Aye. load 'er up!", "No! Don't you be scuttlin' me drink with your garrrrnishes!"]),
-
+		],
 //lists of mixer ingredients for each question 
 	liquorIngredients: new Ingredients([
 		"Swig of Rum", 
@@ -59,6 +59,8 @@ var state = {
 		"A cherry on top", 
 		"Swizzle straw"
 	]),
+
+	//pantryItems: new Pantry([liquorIngredients, rocksOrFrozen, sweetIngredients, saltyIngredients, bitterIngredients, garnishIngredients]),
 
 	route: "start",
 	currentQuestionIndex: 0,
@@ -107,6 +109,7 @@ function selectMixer(state) {
 //moves through the questions and sets page_element
 function nextQuestion(state) {
 	state.currentQuestionIndex++;
+	console.log(currentQuestionIndex);
 	if (state.currentQuestionIndex === state.questions.length) {
 		setRoute(state, "drink");
 	}
@@ -118,10 +121,11 @@ function nextQuestion(state) {
 //render functions
 //renderApp defaults to hide all routes and shows only the current route
 function renderApp(state, elements) {
-	object.keys(elements).forEach(function(route) {
+	Object.keys(elements).forEach(function(route) {
 		elements[route].hide();
 	});
 	elements[state.route].show();
+
 	if(state.route === "start") {
 		renderStartPage(state, elements[state.route]);
 	}
@@ -133,11 +137,11 @@ function renderApp(state, elements) {
 	}
 };
 //renders the start_page - should be loaded in HTML
-function renderStartPage() {
-	setRoute(state, "start");
+function renderStartPage(state, element) {
+	setRoute(state, "state");
 };
 //renders the question text and the choices for user
-function renderQuestionsPage() {
+function renderQuestionsPage(state, element) {
 	renderQuestionText(state, element.find(".question_text"));
 	renderChoices(state, element.find(".choices"));
 };
@@ -150,10 +154,10 @@ function renderDrinkPage(state, element) {
 //function renders the text that appears as the questions asked by the bartender
 function renderQuestionText(state, element) {
 	var currentQuestionText = state.questions[state.currentQuestionIndex];
-	element.text(currentQuestionText);
+	element.text(currentQuestionText.text);
 };  
 
-	//write the html for the input
+//write the html for the input
 function renderChoices(state, element) {
 	var currentQuestion = state.questions[state.currentQuestionIndex];
 	var choices = currentQuestion.choices.map(function(choice, index) {
@@ -166,17 +170,12 @@ function renderChoices(state, element) {
 	});
 	element.html(choices);
 };  
-
-	//changes text to be displayed in the next question button based on whether bartender has additional questions or drink is ready to be mixed
-//function renderNextButtonText(state, element) {
-// 	var text = state.currentQuestionIndex < state.questions.length -1 ? "Anymore questions, bartender?" : "Ok, mix me drink already!";
-// 	element.text(text);
-// };
-
-
-
+//changes text to be displayed in the next question button based on whether bartender has additional questions or drink is ready to be mixed
+function renderNextButtonText(state, element) {
+	var text = state.currentQuestionIndex < state.questions.length -1 ? "Anymore questions, bartender?" : "Ok, mix me drink already!";
+ 	element.text(text);
+ };
 //event listeners
-
 var page_elements = {
 	"start": $(".start_page"),
 	"question": $(".questions_page"),
@@ -200,5 +199,5 @@ $(".submit_choice").click(function(event) {
 	nextQuestion(state);
 	renderApp(state, page_elements);
 });
-
+//document ready function
 $(function() {renderApp(state, page_elements);});
