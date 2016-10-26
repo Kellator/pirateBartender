@@ -7,11 +7,12 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
 	<link rel=stylesheet" type="text/css" href="css/main.css">
 	<link href="https://fonts.googleapis.com/css?family=Carrois+Gothic+SC|Overlock+SC|Trade+Winds" rel="stylesheet">
+	<script src="node_modules/jquery/dist/jquery.js"></script>
 </head>
 <body>
 <!--start_page shows when page loads and if the game is reset-->
 	<div class="start_page">
-		<h1>Walk the Plank Pirate Bar</h1>
+		<h1>Walk the Plank | Pirate Bar</h1>
 		<div class="welcome_panel">
 			<p class="welcome">Avast ye scurvy curs and welcome to Walk the Plank.  If you've got what it takes to stare down Davy Jones' and laugh in his salty ol' face, then step up t' the plank and name yer poison!</p>
 			<!--button will start the series of questions to combine ingredients for drink-->
@@ -20,14 +21,14 @@
 			</form>
 		</div>
 <!--questions_page presents with a list of choices for user to make regarding drink aspects-->
-	<div class="questions_page" style= "display:none;">
+	<div class="questions_page" >
 		<h3><span class="question_text"></span></h3>
 		<form name="current_question">
 			<ol class="choices"></ol>
 			<button type="submit" class="submit_choice">Mix me Grog!</button>
 		</form>
 	</div>
-<!--drinks_page displays mixed drink name and recipe.  Provides button to mix another drink-->
+	<!--drinks_page displays mixed drink name and recipe.  Provides button to mix another drink-->
 	<div class="drinks_page" style= "display:none;">
 		<h1>Bottoms Up!</h1>
 		<h3 class="drinks_name"></h3>
@@ -51,8 +52,7 @@
 			<!-- AddToAny END -->
 		</div>
 	</footer>
-<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="app.js"></script>
+<!--<script type="text/javascript" src="app.js"></script>-->
 
 </body>
 </html>

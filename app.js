@@ -65,6 +65,7 @@ var state = {
 	route: "start",
 	currentQuestionIndex: 0,
 	mixerRandom: 0,
+	questionAnswered: false,
 	drinkName: "",
 	liquorMixer: "",
 	iceMixer: "",
@@ -104,8 +105,23 @@ function resetBartender (state) {
 function selectMixer(state) {
 	state.mixerRandom= Math.random();
 };
+//randomMixer for each ingredient - triggered by specific question
+function renderMixerResult(state, element) {
+	var currentQuestion = state.questions[state.currentQuestionIndex];
+	var choices = currentQuestion.choices.map(function(choice,index) {
+		var text = choices[Math.floor(state.mixerRandom * choices.length)];
+		element.text(text);
+		console.log(choices.length);
+	});
+};
 
 //asks the questions and stores the answers from user
+function askQuestion(state, answer) {
+	var currentQuestion = state.questions[state.currentQuestionIndex];
+	//any response as long as input is entered
+	//state.questionAnswered = currentQuestion.questionAnswered === True;
+	
+};
 //moves through the questions and sets page_element
 function nextQuestion(state) {
 	state.currentQuestionIndex++;
@@ -138,12 +154,13 @@ function renderApp(state, elements) {
 };
 //renders the start_page - should be loaded in HTML
 function renderStartPage(state, element) {
-	setRoute(state, "state");
+	setRoute(state, "start");
 };
 //renders the question text and the choices for user
 function renderQuestionsPage(state, element) {
 	renderQuestionText(state, element.find(".question_text"));
 	renderChoices(state, element.find(".choices"));
+	renderNextButtonText(state, element.find(".submit_choice"))
 };
 //function renders the drink page once all questions hae been asked and answer
 function renderDrinkPage(state, element) {
@@ -151,6 +168,7 @@ function renderDrinkPage(state, element) {
 	//variables to represent all the stored mixers  - "It's made with,"+ liquorMixer, iceMixer, sweetMixer, saltyMixer, +" with a " + bitterMixer + " and a " + garnishMixer + ".";
 	element.text(text);
 };
+
 //function renders the text that appears as the questions asked by the bartender
 function renderQuestionText(state, element) {
 	var currentQuestionText = state.questions[state.currentQuestionIndex];
@@ -174,7 +192,7 @@ function renderChoices(state, element) {
 function renderNextButtonText(state, element) {
 	var text = state.currentQuestionIndex < state.questions.length -1 ? "Anymore questions, bartender?" : "Ok, mix me drink already!";
  	element.text(text);
- };
+};
 //event listeners
 var page_elements = {
 	"start": $(".start_page"),
