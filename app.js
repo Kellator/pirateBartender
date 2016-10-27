@@ -1,24 +1,25 @@
 "use strict";
 var state = {
 	questions: [
-		new Question("Which friend are ye drinking with tonight?",
+		//liquor
+			new Question("Which friend are ye drinking with tonight?",
 			["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"]),
-
-		new Question("Do ye like yer drinks on the rocks or frozen?",
+		//ice
+			new Question("Do ye like yer drinks on the rocks or frozen?",
  			["On the rocks, just like me ol' ship", "I'll take me grog frozen like me heart."]),
-
+		//sweet
 		new Question("Will ye be having a wee bit o' sweetness in your grog this evening?",
 			["Aye!", "I think I'm sweet enough"]),
-
+		//salty
 		new Question("Would ye like yer grog with a salty tang?",
 			["Aye, I like me drinks like a like me sea!", "No! I've had quite enough bilgewater, thank you."]),
-
+		//bitter
 		new Question("Would you be a Son of a Biscuit Eater who be likin' 'is drinks a bit bitter?",
 			["Aye, you know me well", "Bitter, aye perhaps I am, but not for me drink"]),
-
+		//garnish 
 		new Question("Are ye a scallywag who likes a little extra booty to decorate yer drink?",
 			["Aye. load 'er up!", "No! Don't you be scuttlin' me drink with your garrrrnishes!"]),
-		],
+	],
 //creates pantry and fills with ingredients for each type of mixer 
 	pantry: {
 		liquorIngredients: new Ingredients([
@@ -111,25 +112,25 @@ function renderMixerResult(state, element) {
 };
  //- empty array to story results in?
 //store results of random?  for loop? - ex:  for (var i =0l i < questions.length; i++) { mixerTypes.push(?);}
-// function storeMixers() {
-// 	for (var i = 0; i < questions.length; i++) {
-// 		mixerTypes.push(questions[i].choices);
-// 	}
+//questions not defined? 
+// function storeMixers(state) {
+//  	for (var i = 0; i < questions.length; i++) {
+//  		mixerTypes.push(questions[i].choices);
+//  	}
 // };
 // storeMixers();
 
 
 //asks the questions and stores the answers from user
-//function askQuestion(state, answer) {
-//	var currentQuestion = state.questions[state.currentQuestionIndex];
+function askQuestion(state, answer) {
+	var currentQuestion = state.questions[state.currentQuestionIndex];
 	//any response as long as input is entered
 	//state.questionAnswered = currentQuestion.questionAnswered === True;
-//	console.log(currentQuestionIndex);
-//};
+	console.log(currentQuestionIndex);
+};
 //moves through the questions and sets page_element
 function nextQuestion(state) {
 	state.currentQuestionIndex++;
-	console.log(currentQuestionIndex);
 	if (state.currentQuestionIndex === state.questions.length) {
 		setRoute(state, "drink");
 	}
@@ -168,8 +169,8 @@ function renderQuestionsPage(state, element) {
 };
 //function renders the drink page once all questions hae been asked and answer
 function renderDrinkPage(state, element) {
-	var text = "Yer drink be ready.  Here's yer" + drinkName + ", ya parrot-lovin' scoundrel.  "  +
-	"It be made of " + mixerTypes + ".";//separated list?	
+	var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
+	"It be made of " + "mixerTypes" + ".";//separated list?	
 	element.text(text);
 };
 

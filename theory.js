@@ -1,24 +1,31 @@
 "use strict";
 var state = {
-	var questions = {
-		liquor: new Question("Which friend are ye drinking with tonight?",
-			["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"]),
-
-		rocks: new Question("Do ye like yer drinks on the rocks or frozen?",
- 			["On the rocks, just like me ol' ship", "I'll take me grog frozen like me heart."]),
-
-		sweet: new Question("Will ye be having a wee bit o' sweetness in your grog this evening?",
-			["Aye!", "I think I'm sweet enough"]),
-
-		salty: new Question("Would ye like yer grog with a salty tang?",
-			["Aye, I like me drinks like a like me sea!", "No! I've had quite enough bilgewater, thank you."]),
-
-		bitter: new Question("Would you be a Son of a Biscuit Eater who be likin' 'is drinks a bit bitter?",
-			["Aye, you know me well", "Bitter, aye perhaps I am, but not for me drink"]),
-
-		garnish: new Question("Are ye a scallywag who likes a little extra booty to decorate yer drink?",
-			["Aye. load 'er up!", "No! Don't you be scuttlin' me drink with your garrrrnishes!"]),
-		}
+	questions:[
+	{
+		text = "Which friend are ye drinking with tonight?",
+		choices = ["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"],
+	},
+	{
+		text = "Do ye like yer drinks on the rocks or frozen?",
+ 		choices = ["On the rocks, just like me ol' ship", "I'll take me grog frozen like me heart."],
+	},
+	{
+		text = "Will ye be having a wee bit o' sweetness in your grog this evening?",
+		choices =["Aye!", "I think I'm sweet enough"],
+	},
+	{
+		text = "Would ye like yer grog with a salty tang?",
+		choices = ["Aye, I like me drinks like a like me sea!", "No! I've had quite enough bilgewater, thank you."],
+	},
+	{
+		text = "Would you be a Son of a Biscuit Eater who be likin' 'is drinks a bit bitter?",
+		choices = ["Aye, you know me well", "Bitter, aye perhaps I am, but not for me drink"],
+	},
+	{
+		text = "Are ye a scallywag who likes a little extra booty to decorate yer drink?",
+		choices = ["Aye. load 'er up!", "No! Don't you be scuttlin' me drink with your garrrrnishes!"],
+	},
+	],
 //creates pantry and fills with ingredients for each type of mixer 
 	var pantry = {
 		liquorIngredients: new Ingredients([
