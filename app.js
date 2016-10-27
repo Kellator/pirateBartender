@@ -62,16 +62,17 @@ var state = {
 	mixerRandom: 0,
 	questionAnswered: false,
 	drinkName: "",
-	lastQuestionAsked: false
-	//mixerTypes = []
+	lastQuestionAsked: false,
+	mixerTypes : []
 	// liquorMixer: "",
 	// iceMixer: "",
 	// sweetMixer: "",
 	// saltyMixer: "",
 	// bitterMixer: "",
 	// garnishMixer: ""
-};
 
+};
+console.log(state.route, state.currentQuestionIndex, state.mixerRandom);
 //constructor functions
 console.log(state.questions.length);
 //questions constructor function (does this need to have index as an argument too?)
@@ -108,7 +109,7 @@ function renderMixerResult(state, element) {
  	var choices = currentQuestion.choices.map(function(choice,index) {
  		var text = choices[Math.floor(state.mixerRandom * choices.length)];
  		element.text(text);
- 		console.log(choices.length);
+ 		console.log(text);
  	});
 };
  //- empty array to story results in?
@@ -123,12 +124,12 @@ function renderMixerResult(state, element) {
 
 
 //asks the questions and stores the answers from user
-function askQuestion(state, answer) {
-	var currentQuestion = state.questions[state.currentQuestionIndex];
-	//any response as long as input is entered
-	//state.questionAnswered = currentQuestion.questionAnswered === True;
-	console.log(currentQuestionIndex);
-};
+// function askQuestion(state, answer) {
+// 	var currentQuestion = state.questions[state.currentQuestionIndex];
+// 	//any response as long as input is entered
+// 	//state.questionAnswered = currentQuestion.questionAnswered === True;
+// 	console.log(currentQuestionIndex);
+// };
 //moves through the questions and sets page_element
 function nextQuestion(state) {
 	state.currentQuestionIndex++;
@@ -139,6 +140,7 @@ function nextQuestion(state) {
 		setRoute(state, "question");
 	}
 };
+
 
 //render functions
 //renderApp defaults to hide all routes and shows only the current route
@@ -158,16 +160,8 @@ function renderApp(state, elements) {
 		break;
 		default: renderStartPage(state, elements[state.route]);
 	}
-	// if(state.route === "start") {
-	// 	renderStartPage(state, elements[state.route]);
-	// }
-	// else if (state.route === "question") {
-	// 	renderQuestionsPage(state, elements[state.route]);
-	// }
-	// else if (state.route === "drink") {
-	// 	renderDrinkPage(state, elements[state.route]);
-	// }
 };
+//renders different routes of state
 //renders the start_page
 function renderStartPage(state, element) {
 	setRoute(state, "start");
@@ -181,23 +175,26 @@ function renderQuestionsPage(state, element) {
 //function renders the drink page once all questions hae been asked and answer
 function renderDrinkPage(state, element) {
 	var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
-	"It be made of " + "mixerTypes" + ".";//separated list?	
+	"It be made of " + mixerTypes + ".";//separated list?	
+	displayMixedDrink(state, element);
+	renderMixerResult(state, element);
 	element.text(text);
 };
+
+
 
 //function renders the text that appears as the questions asked by the bartender
 function renderQuestionText(state, element) {
 	var currentQuestionText = state.questions[state.currentQuestionIndex];
 	element.text(currentQuestionText.text);
 };  
-
 //write the html for the input
 function renderChoices(state, element) {
 	var currentQuestion = state.questions[state.currentQuestionIndex];
 	var choices = currentQuestion.choices.map(function(choice, index) {
 		return (
 			"<li>" +
-				"<input type='radio' name='user_answer' value='" + index + "'required>" +
+				"<input type='radio' name='user_answer' value='" + index + "'  required>" +
 				"<label>" + choice + "</label></input>" +
 			"</li>"
 		);
@@ -213,6 +210,7 @@ function displayMixedDrink(state, element) {
 	var drinkName = "";
 
 }
+
 //event listeners
 var page_elements = {
 	"start": $(".start_page"),
@@ -229,6 +227,14 @@ $("form[name='start_mixing']").submit(function(event) {
 $(".reset_questions").click(function(event){
 	event.preventDefault();
 	resetBartender(state);
+	renderApp(state, page_elements);
+});
+//checks user answer
+$("form[name='current_question']").submit(function(event) {
+	event.preventDefault();
+	var answer = $("input[name='user_answer']:checked").attr("value");
+	console.log(answer);
+	renderMixerResult(state, element);
 	renderApp(state, page_elements);
 });
 //answer submit listener

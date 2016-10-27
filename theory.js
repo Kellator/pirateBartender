@@ -101,5 +101,15 @@ function askQuestions() {
 	$(".question_text").append("<span class='question'>" + this.question + "</span>");
 }
 function 
-
+//removed from original js
 //function triggered with questions button (switch method?)
+
+	// if(state.route === "start") {
+	// 	renderStartPage(state, elements[state.route]);
+	// }
+	// else if (state.route === "question") {
+	// 	renderQuestionsPage(state, elements[state.route]);
+	// }
+	// else if (state.route === "drink") {
+	// 	renderDrinkPage(state, elements[state.route]);
+	// }
