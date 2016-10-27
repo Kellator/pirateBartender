@@ -1,78 +1,73 @@
-"use strict"
-//app will ask a series of questions.  For each answer provided by user,
-//app will chose and store a random ingredient for each type of mixer 
-//all stored ingredients will be returned in the drink_page as a recipe for the drink
-//app will chose random name for returned drink recipe - list of names currently located on drink_names.md
-//state of the app
+"use strict";
 var state = {
-	questions:[
-		new Question("Which friend are ye drinking with tonight?",
+	questions: {
+		liquor: new Question("Which friend are ye drinking with tonight?",
 			["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"]),
 
-		new Question("Do ye like yer drinks on the rocks or frozen?",
+		rocks: new Question("Do ye like yer drinks on the rocks or frozen?",
  			["On the rocks, just like me ol' ship", "I'll take me grog frozen like me heart."]),
 
-		new Question("Will ye be having a wee bit o' sweetness in your grog this evening?",
+		sweet: new Question("Will ye be having a wee bit o' sweetness in your grog this evening?",
 			["Aye!", "I think I'm sweet enough"]),
 
-		new Question("Would ye like yer grog with a salty tang?",
+		salty: new Question("Would ye like yer grog with a salty tang?",
 			["Aye, I like me drinks like a like me sea!", "No! I've had quite enough bilgewater, thank you."]),
 
-		new Question("Would you be a Son of a Biscuit Eater who be likin' 'is drinks a bit bitter?",
+		bitter: new Question("Would you be a Son of a Biscuit Eater who be likin' 'is drinks a bit bitter?",
 			["Aye, you know me well", "Bitter, aye perhaps I am, but not for me drink"]),
 
-		new Question("Are ye a scallywag who likes a little extra booty to decorate yer drink?",
+		garnish: new Question("Are ye a scallywag who likes a little extra booty to decorate yer drink?",
 			["Aye. load 'er up!", "No! Don't you be scuttlin' me drink with your garrrrnishes!"]),
-		],
-//lists of mixer ingredients for each question 
-	liquorIngredients: new Ingredients([
-		"Swig of Rum", 
-		"Shot of Tequila", 
-		"Dram of Whiskey", 
-		"Pour of Vodka", 
-		"Spritz of Soda"
-	]),
-	rocksOrFrozen: new Ingredients([
-		"On the rocks",
-		"Frozen"
-	]),
-	sweetIngredients: new Ingredients([
-		"Drop of pineapple juice", 
-		"Squeeze of orange juice", 
-		"Drizzle of raspberry puree swirl", 
-		"Bit of coconut liqueur", 
-		"Splash of sweet and sour mix"
-	]),
-	saltyIngredients: new Ingredients([
-		"Olive on a tiny sword", 
-		"Salt-rimmed glass", 
-		"Pickle brine"
-	]),
-	bitterIngredients: new Ingredients([
-		"Shake of bitters", 
-		"Squirt of tonic", 
-		"Twist of Lemon"
-	]),
-	garnishIngredients: new Ingredients([
-		"Wedge of lime", 
-		"Slice of orange", 
-		"A cherry on top", 
-		"Swizzle straw"
-	]),
-
-	//pantryItems: new Pantry([liquorIngredients, rocksOrFrozen, sweetIngredients, saltyIngredients, bitterIngredients, garnishIngredients]),
-
+		},
+//creates pantry and fills with ingredients for each type of mixer 
+	pantry: {
+		liquorIngredients: new Ingredients([
+			"Swig of Rum", 
+			"Shot of Tequila", 
+			"Dram of Whiskey", 
+			"Pour of Vodka", 
+			"Spritz of Soda"
+		]),
+		rocksOrFrozen: new Ingredients([
+			"On the rocks",
+			"Frozen"
+		]),
+		sweetIngredients: new Ingredients([
+			"Drop of pineapple juice", 
+			"Squeeze of orange juice", 
+			"Drizzle of raspberry puree swirl", 
+			"Bit of coconut liqueur", 
+			"Splash of sweet and sour mix"
+		]),
+		saltyIngredients: new Ingredients([
+			"Olive on a tiny sword", 
+			"Salt-rimmed glass", 
+			"Pickle brine"
+		]),
+		bitterIngredients: new Ingredients([
+			"Shake of bitters", 
+			"Squirt of tonic", 
+			"Twist of Lemon"
+		]),
+		garnishIngredients: new Ingredients([
+			"Wedge of lime", 
+			"Slice of orange", 
+			"A cherry on top", 
+			"Swizzle straw"
+		]),
+	},
 	route: "start",
 	currentQuestionIndex: 0,
 	mixerRandom: 0,
 	questionAnswered: false,
 	drinkName: "",
-	liquorMixer: "",
-	iceMixer: "",
-	sweetMixer: "",
-	saltyMixer: "",
-	bitterMixer: "",
-	garnishMixer: ""
+	//mixerTypes = []
+	// liquorMixer: "",
+	// iceMixer: "",
+	// sweetMixer: "",
+	// saltyMixer: "",
+	// bitterMixer: "",
+	// garnishMixer: ""
 };
 
 //constructor functions
@@ -107,21 +102,30 @@ function selectMixer(state) {
 };
 //randomMixer for each ingredient - triggered by specific question
 function renderMixerResult(state, element) {
-	var currentQuestion = state.questions[state.currentQuestionIndex];
-	var choices = currentQuestion.choices.map(function(choice,index) {
-		var text = choices[Math.floor(state.mixerRandom * choices.length)];
-		element.text(text);
-		console.log(choices.length);
-	});
+ 	var currentQuestion = state.questions[state.currentQuestionIndex];
+ 	var choices = currentQuestion.choices.map(function(choice,index) {
+ 		var text = choices[Math.floor(state.mixerRandom * choices.length)];
+ 		element.text(text);
+ 		console.log(choices.length);
+ 	});
 };
+ //- empty array to story results in?
+//store results of random?  for loop? - ex:  for (var i =0l i < questions.length; i++) { mixerTypes.push(?);}
+function storeMixers() {
+	for (var i = 0; i< questions.length; i++) {
+		mixerTypes.push(questions[i].choices);
+	}
+};
+storeMixers();
+
 
 //asks the questions and stores the answers from user
-function askQuestion(state, answer) {
-	var currentQuestion = state.questions[state.currentQuestionIndex];
+//function askQuestion(state, answer) {
+//	var currentQuestion = state.questions[state.currentQuestionIndex];
 	//any response as long as input is entered
 	//state.questionAnswered = currentQuestion.questionAnswered === True;
-	
-};
+//	console.log(currentQuestionIndex);
+//};
 //moves through the questions and sets page_element
 function nextQuestion(state) {
 	state.currentQuestionIndex++;
@@ -164,8 +168,8 @@ function renderQuestionsPage(state, element) {
 };
 //function renders the drink page once all questions hae been asked and answer
 function renderDrinkPage(state, element) {
-	var text = "Yer drink be ready.  Here's yer" + drinkName + ", ya parrot-lovin' scoundrel.  " ;
-	//variables to represent all the stored mixers  - "It's made with,"+ liquorMixer, iceMixer, sweetMixer, saltyMixer, +" with a " + bitterMixer + " and a " + garnishMixer + ".";
+	var text = "Yer drink be ready.  Here's yer" + drinkName + ", ya parrot-lovin' scoundrel.  "  +
+	"It be made of " + mixerTypes + ".";//separated list?	
 	element.text(text);
 };
 
