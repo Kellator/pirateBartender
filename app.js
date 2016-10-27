@@ -2,10 +2,10 @@
 var state = {
 	questions: [
 		//liquor
-			new Question("Which friend are ye drinking with tonight?",
+		new Question("Which friend are ye drinking with tonight?",
 			["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"]),
 		//ice
-			new Question("Do ye like yer drinks on the rocks or frozen?",
+		new Question("Do ye like yer drinks on the rocks or frozen?",
  			["On the rocks, just like me ol' ship", "I'll take me grog frozen like me heart."]),
 		//sweet
 		new Question("Will ye be having a wee bit o' sweetness in your grog this evening?",
@@ -62,6 +62,7 @@ var state = {
 	mixerRandom: 0,
 	questionAnswered: false,
 	drinkName: "",
+	lastQuestionAsked: false
 	//mixerTypes = []
 	// liquorMixer: "",
 	// iceMixer: "",
@@ -72,7 +73,7 @@ var state = {
 };
 
 //constructor functions
-
+console.log(state.questions.length);
 //questions constructor function (does this need to have index as an argument too?)
 function Question(text, choices) {
 	this.text = text;
@@ -146,18 +147,28 @@ function renderApp(state, elements) {
 		elements[state.route].hide();
 	});
 	elements[state.route].show();
-
-	if(state.route === "start") {
-		renderStartPage(state, elements[state.route]);
+	var route = state.route
+	switch(route) 
+	{
+		case "start" : renderStartPage(state, elements[state.route]);
+		break;
+		case "question" : renderQuestionsPage(state,elements[state.route]);
+		break;
+		case "drinks" : renderDrinkPage(state, elements[state.route]);
+		break;
+		default: renderStartPage(state, elements[state.route]);
 	}
-	else if (state.route === "question") {
-		renderQuestionsPage(state, elements[state.route]);
-	}
-	else if (state.route === "drink") {
-		renderDrinkPage(state, elements[state.route]);
-	}
+	// if(state.route === "start") {
+	// 	renderStartPage(state, elements[state.route]);
+	// }
+	// else if (state.route === "question") {
+	// 	renderQuestionsPage(state, elements[state.route]);
+	// }
+	// else if (state.route === "drink") {
+	// 	renderDrinkPage(state, elements[state.route]);
+	// }
 };
-//renders the start_page - should be loaded in HTML
+//renders the start_page
 function renderStartPage(state, element) {
 	setRoute(state, "start");
 };
@@ -198,6 +209,10 @@ function renderNextButtonText(state, element) {
 	var text = state.currentQuestionIndex < state.questions.length -1 ? "Anymore questions, bartender?" : "Ok, mix me drink already!";
  	element.text(text);
 };
+function displayMixedDrink(state, element) {
+	var drinkName = "";
+
+}
 //event listeners
 var page_elements = {
 	"start": $(".start_page"),
