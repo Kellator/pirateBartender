@@ -160,13 +160,17 @@ function renderApp(state, elements) {
 	var route = state.route
 	switch(route) 
 	{
-		case "start" : renderStartPage(state, elements[state.route]);
-		break;
-		case "question" : renderQuestionsPage(state,elements[state.route]);
-		break;
-		case "drinks" : renderDrinkPage(state, elements[state.route]);
-		break;
-		default: renderStartPage(state, elements[state.route]);
+		case "start" : 
+			renderStartPage(state, elements[state.route]);
+			break;
+		case "question" : 
+			renderQuestionsPage(state,elements[state.route]);
+			break;
+		case "drinks" : 
+			renderDrinkPage(state, elements[state.route]);
+			break;
+		default: 
+			renderStartPage(state, elements[state.route]);
 	}
 };
 //renders different routes of state
@@ -224,30 +228,27 @@ var page_elements = {
 	"question": $(".questions_page"),
 	"drink": $(".drink_page")
 };
+$(document).ready(function() {
 //bartender start button listener
-$("form[name='start_mixing']").submit(function(event) {
-	event.preventDefault();
-	setRoute(state, "question");
-	renderApp(state, page_elements);
-});
-//reset bartender listener
-$(".reset_questions").click(function(event){
-	event.preventDefault();
-	resetBartender(state);
-	renderApp(state, page_elements);
-});
-//checks user answer
-$("form[name='current_question']").submit(function(event) {
-	event.preventDefault();
-	var answer = $("input[name='user_answer']:checked").attr("value");
-	console.log(answer);
-	renderApp(state, page_elements);
-});
-//answer submit listener
-$(".submit_choice").click(function(event) {
-	event.preventDefault();
-	nextQuestion(state);
-	renderApp(state, page_elements);
+	$("form[name='start_mixing']").submit(function(event) {
+		event.preventDefault();
+		setRoute(state, "question");
+		renderApp(state, page_elements);
+	});
+	//reset bartender listener
+	$(".reset_questions").click(function(event){
+		event.preventDefault();
+		resetBartender(state);
+		renderApp(state, page_elements);
+	});
+	//checks user answer
+	$("form[name='current_question']").submit(function(event) {
+		event.preventDefault();
+		var answer = $("input[name='user_answer']:checked").attr("value");
+		console.log(answer);
+		nextQuestion(state);
+		renderApp(state, page_elements);
+	});
 });
 //document ready function
-$(function() {renderApp(state, page_elements);});
+// $(function() {renderApp(state, page_elements);});
