@@ -63,7 +63,7 @@ var state = {
 	questionAnswered: false,
 	drinkName: "",
 	lastQuestionAsked: false,
-	mixerTypes : []
+	mixerTypes: []
 	// liquorMixer: "",
 	// iceMixer: "",
 	// sweetMixer: "",
@@ -112,6 +112,12 @@ function renderMixerResult(state, element) {
  		console.log(text);
  	});
 };
+
+//user input activates mixers
+//question 1 - whatever answer user selects will push that liquor type to the mixerType[]
+
+//questions 2-6 - yes will trigger the selectMixer random function, no will move the state to the next question and push nothing to the selctMixer function
+
  //- empty array to story results in?
 //store results of random?  for loop? - ex:  for (var i =0l i < questions.length; i++) { mixerTypes.push(?);}
 //questions not defined? 
@@ -130,6 +136,8 @@ function renderMixerResult(state, element) {
 // 	//state.questionAnswered = currentQuestion.questionAnswered === True;
 // 	console.log(currentQuestionIndex);
 // };
+
+
 //moves through the questions and sets page_element
 function nextQuestion(state) {
 	state.currentQuestionIndex++;
@@ -146,7 +154,7 @@ function nextQuestion(state) {
 //renderApp defaults to hide all routes and shows only the current route
 function renderApp(state, elements) {
 	Object.keys(elements).forEach(function(route) {
-		elements[state.route].hide();
+		elements[route].hide();
 	});
 	elements[state.route].show();
 	var route = state.route
@@ -172,7 +180,7 @@ function renderQuestionsPage(state, element) {
 	renderChoices(state, element.find(".choices"));
 	renderNextButtonText(state, element.find(".submit_choice"))
 };
-//function renders the drink page once all questions hae been asked and answer
+//function renders the drink page once all questions have been asked and answer
 function renderDrinkPage(state, element) {
 	var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
 	"It be made of " + mixerTypes + ".";//separated list?	
@@ -206,10 +214,9 @@ function renderNextButtonText(state, element) {
 	var text = state.currentQuestionIndex < state.questions.length -1 ? "Anymore questions, bartender?" : "Ok, mix me drink already!";
  	element.text(text);
 };
-function displayMixedDrink(state, element) {
-	var drinkName = "";
-
-}
+// function displayMixedDrink(state, element) {
+// 	var drinkName = "";
+// }
 
 //event listeners
 var page_elements = {
@@ -234,7 +241,6 @@ $("form[name='current_question']").submit(function(event) {
 	event.preventDefault();
 	var answer = $("input[name='user_answer']:checked").attr("value");
 	console.log(answer);
-	renderMixerResult(state, element);
 	renderApp(state, page_elements);
 });
 //answer submit listener
