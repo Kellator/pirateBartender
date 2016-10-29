@@ -5,8 +5,8 @@ var state = {
 		new Question("Which friend are ye drinking with tonight?",
 			["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"]),
 		//ice
-		new Question("Do ye like yer drinks on the rocks or frozen?",
- 			["On the rocks, just like me ol' ship", "I'll take me grog frozen like me heart."]),
+		new Question("Do ye like yer drinks on the rocks?",
+ 			["On the rocks, just like me ol' ship", "I'll be takin' me grog straight-up like me mast, har har har."]),
 		//sweet
 		new Question("Will ye be having a wee bit o' sweetness in your grog this evening?",
 			["Aye!", "I think I'm sweet enough"]),
@@ -72,9 +72,9 @@ var state = {
 	// garnishMixer: ""
 
 };
-console.log(state.route, state.currentQuestionIndex, state.mixerRandom);
+
 //constructor functions
-console.log(state.questions.length);
+
 //questions constructor function (does this need to have index as an argument too?)
 function Question(text, choices) {
 	this.text = text;
@@ -108,51 +108,29 @@ function resetBartender (state) {
 // };
 //randomMixer for each ingredient - triggered by specific question
 //should take the mixerRandom array and choose one
-function renderMixerResult(state, element) {};
-// 	for (answer in questions) {
-// 		if (questions[answer].True) {
-// 			selectMixer = state.mixerRandom= Math.random();
-// 			var mixerTypes = pantry[category].ingredient[selectMixer];
-// 			drinkArr.push(addToDrink);
-//  		}
-// 	}
-// };
+function renderMixerResult(state, element) {
+	var text = "mixer result";
+	return text;
+	console.log("mixer result");
+};
+function displayMixedDrink(state, element) {
+	var text = "mixed drink";
+	return text;
+	console.log("mixed drink");
+};
+
 function chooseMixer(state, element) {
 	var currentQuestion = state.questions[state.currentQuestionIndex];
 	state.questionAnswered = currentQuestion.questionAnswered === True;
 	mixerRandom(Ingredients);
 	setRoute(state, questions_page);
 };
-//user input activates mixers
-//question 1 - whatever answer user selects will push that liquor type to the mixerType[]
-
-//questions 2-6 - yes will trigger the selectMixer random function, no will move the state to the next question and push nothing to the selctMixer function
-
- //- empty array to story results in?
-//store results of random?  for loop? - ex:  for (var i =0l i < questions.length; i++) { mixerTypes.push(?);}
-//questions not defined? 
-// function storeMixers(state) {
-//  	for (var i = 0; i < questions.length; i++) {
-//  		mixerTypes.push(questions[i].choices);
-//  	}
-// };
-// storeMixers();
-
-
-//asks the questions and stores the answers from user
-// function askQuestion(state, answer) {
-// 	var currentQuestion = state.questions[state.currentQuestionIndex];
-// 	//any response as long as input is entered
-// 	//state.questionAnswered = currentQuestion.questionAnswered === True;
-// 	console.log(currentQuestionIndex);
-// };
-
 
 //moves through the questions and sets page_element
 function nextQuestion(state) {
 	state.currentQuestionIndex++;
 	if (state.currentQuestionIndex === state.questions.length) {
-		setRoute(state, "drink");
+		setRoute(state, "drinks");
 	}
 	else if (state.currentQuestionIndex === 0) {
 		setRoute(state, "friends");
@@ -161,7 +139,6 @@ function nextQuestion(state) {
 		setRoute(state, "question");
 	}
 };
-
 
 //render functions
 //renderApp defaults to hide all routes and shows only the current route
@@ -208,11 +185,10 @@ function renderQuestionsPage(state, element) {
 };
 //function renders the drink page once all questions have been asked and answer
 function renderDrinkPage(state, element) {
-	var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
-	"It be made of " + liquorMixer + mixerTypes + ".";//separated list?	
-	displayMixedDrink(state, element);
-	renderMixerResult(state, element);
-	element.text(text);
+	//var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
+	//"It be made of " + liquorMixer + mixerTypes + ".";//separated list?	
+	displayMixedDrink(state, element.find(".drink_name"));
+	renderMixerResult(state, element.find(".drink_recipe"));
 };
 //provides only first question text for multiple choice user input vs true/false input
 function renderFriendText(state, element) {
@@ -284,5 +260,5 @@ $(document).ready(function() {
 		renderApp(state, page_elements);
 	});
 });
-//document ready function
+//document ready function - encasing events within the doc ready or having it at the end work the same
 // $(function() {renderApp(state, page_elements);});
