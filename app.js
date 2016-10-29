@@ -130,7 +130,7 @@ function chooseMixer(state, element) {
 function nextQuestion(state) {
 	state.currentQuestionIndex++;
 	if (state.currentQuestionIndex === state.questions.length) {
-		setRoute(state, "drinks");
+		setRoute(state, "drink");
 	}
 	else if (state.currentQuestionIndex === 0) {
 		setRoute(state, "friends");
@@ -160,7 +160,7 @@ function renderApp(state, elements) {
 		case "question" : 
 			renderQuestionsPage(state, elements[state.route]);
 			break;
-		case "drinks" : 
+		case "drink" : 
 			renderDrinkPage(state, elements[state.route]);
 			break;
 		default: 
