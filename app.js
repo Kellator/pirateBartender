@@ -29,9 +29,8 @@ var state = {
 			"Pour of Vodka", 
 			"Spritz of Soda"
 		]),
-		rocksOrFrozen: new Ingredients([
-			"On the rocks",
-			"Frozen"
+		rocksOrNot: new Ingredients([
+			"On the rocks"
 		]),
 		sweetIngredients: new Ingredients([
 			"Drop of pineapple juice", 
@@ -70,7 +69,6 @@ var state = {
 	// saltyMixer: "",
 	// bitterMixer: "",
 	// garnishMixer: ""
-
 };
 
 //constructor functions
@@ -97,9 +95,19 @@ function setRoute (state, route) {
 	state.route = route;
 };
 //reset the questions and mix a new drink
-function resetBartender (state) {
+function resetBartender(state) {
 	state.currentQuestionIndex = 0;
 	setRoute(state, "start");
+};
+
+function logUserResponse(state, answer) {
+	var currentQuestion = state.questions[state.currentQuestionIndex];
+	var currentQuestionChoice =  currentQuestion.choices;
+		console.log(currentQuestion);
+		console.log(currentQuestionChoice[answer]);
+//if answer = currentQuestionChoice[0] do randomizer function and store results to drink array
+//else setRoute(question) - return nothing
+
 };
 //selects random ingredients from mixers lists
 // function selectMixer(state) {
@@ -176,6 +184,7 @@ function renderFriendsPage(state, element) {
 	renderFriendText(state, element.find(".friend_question_text"));
 	renderChoices(state, element.find(".choices"));
 	renderNextButtonText(state, element.find(".submit_choice"));
+
 };
 //renders the question text and the choices for user
 function renderQuestionsPage(state, element) {
@@ -256,7 +265,8 @@ $(document).ready(function() {
 		event.preventDefault();
 		var answer = $("input[name='user_answer']:checked").attr("value");
 		console.log(answer);
-		nextQuestion(state);
+		logUserResponse(state, answer);
+		nextQuestion(state);	
 		renderApp(state, page_elements);
 	});
 });
