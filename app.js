@@ -108,7 +108,7 @@ function resetBartender (state) {
 // };
 //randomMixer for each ingredient - triggered by specific question
 //should take the mixerRandom array and choose one
-function renderMixerResult(state, element) {
+function renderMixerResult(state, element) {};
 // 	for (answer in questions) {
 // 		if (questions[answer].True) {
 // 			selectMixer = state.mixerRandom= Math.random();
@@ -154,6 +154,9 @@ function nextQuestion(state) {
 	if (state.currentQuestionIndex === state.questions.length) {
 		setRoute(state, "drink");
 	}
+	else if (state.currentQuestionIndex === 0) {
+		setRoute(state, "friends");
+	}
 	else {
 		setRoute(state, "question");
 	}
@@ -167,14 +170,18 @@ function renderApp(state, elements) {
 		elements[route].hide();
 	});
 	elements[state.route].show();
+
 	var route = state.route
 	switch(route) 
 	{
 		case "start" : 
 			renderStartPage(state, elements[state.route]);
 			break;
+		case "friends" :
+			renderFriendsPage(state, elements[state.route]);
+			break;
 		case "question" : 
-			renderQuestionsPage(state,elements[state.route]);
+			renderQuestionsPage(state, elements[state.route]);
 			break;
 		case "drinks" : 
 			renderDrinkPage(state, elements[state.route]);
@@ -188,11 +195,16 @@ function renderApp(state, elements) {
 function renderStartPage(state, element) {
 	setRoute(state, "start");
 };
+function renderFriendsPage(state, element) {
+	renderFriendText(state, element.find(".friend_question_text"));
+	renderChoices(state, element.find(".choices"));
+	renderNextButtonText(state, element.find(".submit_choice"));
+};
 //renders the question text and the choices for user
 function renderQuestionsPage(state, element) {
 	renderQuestionText(state, element.find(".question_text"));
 	renderChoices(state, element.find(".choices"));
-	renderNextButtonText(state, element.find(".submit_choice"))
+	renderNextButtonText(state, element.find(".submit_choice"));
 };
 //function renders the drink page once all questions have been asked and answer
 function renderDrinkPage(state, element) {
@@ -202,9 +214,11 @@ function renderDrinkPage(state, element) {
 	renderMixerResult(state, element);
 	element.text(text);
 };
-
-
-
+//provides only first question text for multiple choice user input vs true/false input
+function renderFriendText(state, element) {
+	var currentQuestionText = state.questions[0];
+	element.text(currentQuestionText.text);
+};
 //function renders the text that appears as the questions asked by the bartender
 function renderQuestionText(state, element) {
 	var currentQuestionText = state.questions[state.currentQuestionIndex];
@@ -235,15 +249,25 @@ function renderNextButtonText(state, element) {
 //event listeners
 var page_elements = {
 	"start": $(".start_page"),
+	"friends": $(".friends_page"),
 	"question": $(".questions_page"),
 	"drink": $(".drink_page")
 };
+
 $(document).ready(function() {
 //bartender start button listener
 	$("form[name='start_mixing']").submit(function(event) {
 		event.preventDefault();
-		setRoute(state, "question");
+		setRoute(state, "friends");
 		renderApp(state, page_elements);
+		console.log(page_elements);
+	});
+//starts yes no question series
+	$("form[name='question_one']").click(function(event){
+		event.preventDefault();
+		setRoute(state, "questions");
+		renderApp(state, page_elements);
+		console.log(page_elements);
 	});
 	//reset bartender listener
 	$(".reset_questions").click(function(event){
