@@ -63,8 +63,8 @@ var state = {
 	questionAnswered: false,
 	drinkName: "",
 	lastQuestionAsked: false,
-	mixerTypes: []
-	// liquorMixer: "",
+	mixerTypes: [],
+	liquorMixer: ""
 	// iceMixer: "",
 	// sweetMixer: "",
 	// saltyMixer: "",
@@ -88,7 +88,9 @@ function Ingredients(mixers) {
 function Pantry(supplies) {
 	this.supplies = supplies;
 };
-
+function Bartender(drink) {
+	this.drink = drink;
+};
 //functions that affect state
 //start drink mixer and determine where is program user is (i.e. at start_page, questions_page, or drink_page)
 function setRoute (state, route) {
@@ -100,19 +102,27 @@ function resetBartender (state) {
 	setRoute(state, "start");
 };
 //selects random ingredients from mixers lists
-function selectMixer(state) {
-	state.mixerRandom= Math.random();
-};
+// function selectMixer(state) {
+// 	state.mixerRandom= Math.random();
+// 	console.log(state.mixerRandom);
+// };
 //randomMixer for each ingredient - triggered by specific question
+//should take the mixerRandom array and choose one
 function renderMixerResult(state, element) {
- 	var currentQuestion = state.questions[state.currentQuestionIndex];
- 	var choices = currentQuestion.choices.map(function(choice,index) {
- 		var text = choices[Math.floor(state.mixerRandom * choices.length)];
- 		element.text(text);
- 		console.log(text);
- 	});
+// 	for (answer in questions) {
+// 		if (questions[answer].True) {
+// 			selectMixer = state.mixerRandom= Math.random();
+// 			var mixerTypes = pantry[category].ingredient[selectMixer];
+// 			drinkArr.push(addToDrink);
+//  		}
+// 	}
+// };
+function chooseMixer(state, element) {
+	var currentQuestion = state.questions[state.currentQuestionIndex];
+	state.questionAnswered = currentQuestion.questionAnswered === True;
+	mixerRandom(Ingredients);
+	setRoute(state, questions_page);
 };
-
 //user input activates mixers
 //question 1 - whatever answer user selects will push that liquor type to the mixerType[]
 
@@ -187,7 +197,7 @@ function renderQuestionsPage(state, element) {
 //function renders the drink page once all questions have been asked and answer
 function renderDrinkPage(state, element) {
 	var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
-	"It be made of " + mixerTypes + ".";//separated list?	
+	"It be made of " + liquorMixer + mixerTypes + ".";//separated list?	
 	displayMixedDrink(state, element);
 	renderMixerResult(state, element);
 	element.text(text);
