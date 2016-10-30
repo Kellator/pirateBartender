@@ -35,8 +35,6 @@ var state = {
 		sweetIngredients: new Ingredients([
 			"Drop of pineapple juice", 
 			"Squeeze of orange juice", 
-			"Drizzle of raspberry puree swirl", 
-			"Bit of coconut liqueur", 
 			"Splash of sweet and sour mix"
 		]),
 		saltyIngredients: new Ingredients([
@@ -52,14 +50,12 @@ var state = {
 		garnishIngredients: new Ingredients([
 			"Wedge of lime", 
 			"Slice of orange", 
-			"A cherry on top", 
 			"Swizzle straw"
 		]),
 	},
 	route: "start",
 	currentQuestionIndex: 0,
 	mixerRandom: 0,
-	questionAnswered: false,
 	drinkName: "",
 	lastQuestionAsked: false,
 	mixerTypes: [],
@@ -99,7 +95,7 @@ function resetBartender(state) {
 	state.currentQuestionIndex = 0;
 	setRoute(state, "start");
 };
-
+//logs user input to questions and pushes corresponding mixer to mixerType array
 function logUserResponse(state, answer) {
 	var currentQuestion = state.questions[state.currentQuestionIndex];
 	var currentQuestionChoice =  currentQuestion.choices;
@@ -111,7 +107,7 @@ function logUserResponse(state, answer) {
 		console.log("I'm another question");
 		//needs to use user response to trigger randomizer function
 		if (parseInt(answer) === 0) {
-			selectMixer(state);
+			chooseMixer(state);
 			console.log("yes");
 		}
 		else if (parseInt(answer) === 1) {
@@ -123,12 +119,9 @@ function logUserResponse(state, answer) {
 //if answer = currentQuestionChoice[0] do randomizer function and store results to drink array
 //else setRoute(question) - return nothing
 
-//selects random ingredients from mixers lists
-function selectMixer(state) {
-	state.mixerRandom = Math.random();
-	var addToDrink = pantry[category].ingredients[state.mixerRandom];
-	mixerTypes(ingredients).push(addToDrink);
-	console.log(addToDrink);
+//uses math module to select random number for mixer
+function randomMixer(state) {
+	state.mixerRandom = Math.floor(Math.random() * 4);
 	console.log(state.mixerRandom);
 };
 //randomMixer for each ingredient - triggered by specific question
@@ -145,7 +138,7 @@ function displayMixedDrink(state, element) {
 };
 
 function chooseMixer(state, element) {
-	mixerRandom(Ingredients);
+	randomMixer(Ingredients);
 	setRoute(state, "question");
 };
 
@@ -197,10 +190,11 @@ function renderQuestionsPage(state, element) {
 };
 //function renders the drink page once all questions have been asked and answer
 function renderDrinkPage(state, element) {
-	//var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
-	//"It be made of " + liquorMixer + mixerTypes + ".";//separated list?	
+	var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
+	"It be made of " + mixerTypes + ".";//separated list?	
 	displayMixedDrink(state, element.find(".drink_name"));
 	renderMixerResult(state, element.find(".drink_recipe"));
+	element.text(text);
 };
 //function renders the text that appears as the questions asked by the bartender
 function renderQuestionText(state, element) {
@@ -226,7 +220,8 @@ function renderNextButtonText(state, element) {
  	element.text(text);
 };
 // function displayMixedDrink(state, element) {
-// 	var drinkName = "";
+//  	var drinkName = "";
+//  	var drinkText = ""
 // }
 
 //event listeners
