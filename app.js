@@ -5,8 +5,8 @@ var state = {
 		new Question("Which friend are ye drinking with tonight?",
 			["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"]),
 		//ice
-		new Question("Do ye like yer drinks on the rocks?",
- 			["On the rocks, just like me ol' ship", "I'll be takin' me grog straight-up like me mast, har har har."]),
+		new Question("Do ye like yer drinks chilled?",
+ 			["Perhaps on the rocks, just like me ol' ship. Surprise me!", "I'll be takin' me grog straight-up like me mast, har har har."]),
 		//sweet
 		new Question("Will ye be having a wee bit o' sweetness in your grog this evening?",
 			["Aye!", "I think I'm sweet enough"]),
@@ -30,7 +30,9 @@ var state = {
 			"Spritz of Soda"
 		]),
 		rocksOrNot: new Ingredients([
-			"On the rocks"
+			"On the rocks",
+			"Frozen",
+			"Chilled"
 		]),
 		sweetIngredients: new Ingredients([
 			"Drop of pineapple juice", 
@@ -53,18 +55,17 @@ var state = {
 			"Swizzle straw"
 		]),
 	},
+	cocktailAdjectives: ["Drunken", "Crazy", "Dirty", "Sexy", "Sissy"],
+	cocktailNouns: ["Sea Dog", "Cabin boy", "Cannon ball", "Cutlass", "Siren"], 
+
 	route: "start",
 	currentQuestionIndex: 0,
 	mixerRandom: 0,
+	namerRandom: 0,
 	drinkName: "",
 	lastQuestionAsked: false,
 	mixerTypes: [],
 	liquorMixer: ""
-	// iceMixer: "",
-	// sweetMixer: "",
-	// saltyMixer: "",
-	// bitterMixer: "",
-	// garnishMixer: ""
 };
 
 //constructor functions
@@ -105,7 +106,7 @@ function logUserResponse(state, answer) {
 	}
 	else {
 		console.log("I'm another question");
-		//needs to use user response to trigger randomizer function
+		//triggers randomizer function
 		if (parseInt(answer) === 0) {
 			chooseMixer(state);
 			console.log("yes");
@@ -116,32 +117,30 @@ function logUserResponse(state, answer) {
 		}
 	}
 };
-//if answer = currentQuestionChoice[0] do randomizer function and store results to drink array
-//else setRoute(question) - return nothing
-
-//uses math module to select random number for mixer
+//uses math module to select random integer 0-4 for drink names
+function randomNamer(state) {
+	state.namerRandom = Math.floor(Math.random() * 5);
+}
+//uses math module to select random number for mixer - returns random integer from 0-2
 function randomMixer(state) {
-	state.mixerRandom = Math.floor(Math.random() * 4);
+	state.mixerRandom = Math.floor(Math.random() * 3);
 	console.log(state.mixerRandom);
 };
-//randomMixer for each ingredient - triggered by specific question
+//triggers the random number generator and selects corresponding ingredient
+function chooseMixer(state, element) {
+	randomMixer(Ingredients);
+	setRoute(state, "question");
+};
 //should take the mixerRandom array and choose one
 function renderMixerResult(state, element) {
 	var text = "mixer result";
 	return text;
 	console.log("mixer result");
 };
+//displays name of mixed drink
 function displayMixedDrink(state, element) {
-	var text = "mixed drink";
-	return text;
-	console.log("mixed drink");
+	//uses namerRandom to select drinkAdjective and drinkNoun
 };
-
-function chooseMixer(state, element) {
-	randomMixer(Ingredients);
-	setRoute(state, "question");
-};
-
 //moves through the questions and sets page_element
 function nextQuestion(state) {
 	state.currentQuestionIndex++;
