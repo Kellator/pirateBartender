@@ -103,22 +103,34 @@ function resetBartender(state) {
 function logUserResponse(state, answer) {
 	var currentQuestion = state.questions[state.currentQuestionIndex];
 	var currentQuestionChoice =  currentQuestion.choices;
-
 	if (state.currentQuestionIndex === 0) {
 		console.log("I'm the first question");
+		//needs to use logged response to select index of ingredients and push to mixerTypes list.
 	}
 	else {
 		console.log("I'm another question");
+		//needs to use user response to trigger randomizer function
+		if (parseInt(answer) === 0) {
+			selectMixer(state);
+			console.log("yes");
+		}
+		else if (parseInt(answer) === 1) {
+			setRoute(state,"question");
+			console.log("no");
+		}
 	}
 };
 //if answer = currentQuestionChoice[0] do randomizer function and store results to drink array
 //else setRoute(question) - return nothing
 
 //selects random ingredients from mixers lists
-// function selectMixer(state) {
-// 	state.mixerRandom= Math.random();
-// 	console.log(state.mixerRandom);
-// };
+function selectMixer(state) {
+	state.mixerRandom = Math.random();
+	var addToDrink = pantry[category].ingredients[state.mixerRandom];
+	mixerTypes(ingredients).push(addToDrink);
+	console.log(addToDrink);
+	console.log(state.mixerRandom);
+};
 //randomMixer for each ingredient - triggered by specific question
 //should take the mixerRandom array and choose one
 function renderMixerResult(state, element) {
@@ -133,10 +145,8 @@ function displayMixedDrink(state, element) {
 };
 
 function chooseMixer(state, element) {
-	var currentQuestion = state.questions[state.currentQuestionIndex];
-	state.questionAnswered = currentQuestion.questionAnswered === True;
 	mixerRandom(Ingredients);
-	setRoute(state, questions_page);
+	setRoute(state, "question");
 };
 
 //moves through the questions and sets page_element
@@ -145,9 +155,6 @@ function nextQuestion(state) {
 	if (state.currentQuestionIndex === state.questions.length) {
 		setRoute(state, "drink");
 	}
-	//else if (state.currentQuestionIndex === 0) {
-		//setRoute(state, "friends");
-	//}
 	else {
 		setRoute(state, "question");
 	}
