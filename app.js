@@ -69,7 +69,7 @@ var state = {
 	liquorMixer: ""
 };
 console.log(state.pantry.liquorIngredients.mixers[1]);
-console.log(state.mixerTypes);
+console.log(state.pantry["garnishIngredients"]);
 //access items in the pantry through above ^
 //constructor functions
 
@@ -106,44 +106,38 @@ function logUserResponse(state, answer) {
 	var index = parseInt(answer);
 	var mixerIngredients = state.pantry.liquorIngredients.mixers;
 	var mixerTypes = state.mixerTypes;
-	console.log(mixerTypes);
 	if (state.currentQuestionIndex === 0) {
-		console.log(mixerIngredients[index]);
-		console.log(index);
-		//needs to use logged response to select index of ingredients and push to mixerTypes list.
 		mixerTypes.push(mixerIngredients[index]);
-		
-		// switch(index)
-		// {
-		// 	case 0 : 
-		// 		mixerTypes.push(mixer);
-		// 		break;
-		// 	case 1 :
-		// 		mixerTypes.push(mixer);
-		// 		break;
-		// 	default:
-		// 		console.log("stop");
-
-		// };
 	}
 	else {
-		//triggers randomizer function
+			//triggers randomizer function
 		if (index === 0) {
-			chooseMixer(state);
-			useMixer = true;
-			console.log(useMixer);
+			randomMixer(state);
+			if (state.currentQuestionIndex === 1) {
+				mixerTypes.push(state.pantry.rocksOrNot.mixers[state.mixerRandom]);
+			}
+			else if (state.currentQuestionIndex === 2) {
+				mixerTypes.push(state.pantry.sweetIngredients.mixers[state.mixerRandom]);
+			}	
+			else if (state.currentQuestionIndex === 3) {
+				mixerTypes.push(state.pantry.saltyIngredients.mixers[state.mixerRandom]);
+			}
+			else if (state.currentQuestionIndex === 4) {
+				mixerTypes.push(state.pantry.bitterIngredients.mixers[state.mixerRandom]);
+			}
+			else if (state.currentQuestionIndex === 5) {
+				mixerTypes.push(state.pantry.garnishIngredients.mixers[state.mixerRandom]);
+			}
 		}
 		else if (index === 1) {
-			useMixer = false;
 			setRoute(state,"question");
-			console.log(useMixer);
 		}
 	}
 };
 //uses math module to select random integer 0-4 for drink names
 function randomNamer(state) {
 	state.namerRandom = Math.floor(Math.random() * 5);
-}
+};
 //uses math module to select random number for mixer - returns random integer from 0-2
 function randomMixer(state) {
 	state.mixerRandom = Math.floor(Math.random() * 3);
@@ -151,7 +145,7 @@ function randomMixer(state) {
 };
 //triggers the random number generator and selects corresponding ingredient
 function chooseMixer(state, element) {
-	randomMixer(Ingredients);
+	var mixerChoices = state.pantry;
 	setRoute(state, "question");
 };
 //should take the mixerRandom array and choose one
@@ -213,11 +207,11 @@ function renderQuestionsPage(state, element) {
 //function renders the drink page once all questions have been asked and answer
 function renderDrinkPage(state, element) {
 	var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
-	"It be made of " + mixerTypes + ".";//separated list?	
+	"It be made of a " + state.mixerTypes + ".";//separated list?	
 	displayMixedDrink(state, element.find(".drink_name"));
 	renderMixerResult(state, element.find(".drink_recipe"));
 	element.text(text);
-	console.log(mixerTypes);
+	console.log(state.mixerTypes);
 };
 //function renders the text that appears as the questions asked by the bartender
 function renderQuestionText(state, element) {
