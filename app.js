@@ -68,9 +68,7 @@ var state = {
 	mixerTypes: [ ],
 	liquorMixer: ""
 };
-console.log(state.pantry.liquorIngredients.mixers[1]);
-console.log(state.pantry["garnishIngredients"]);
-//access items in the pantry through above ^
+
 //constructor functions
 
 //questions constructor function (does this need to have index as an argument too?)
@@ -141,13 +139,17 @@ function randomNamer(state) {
 //uses math module to select random number for mixer - returns random integer from 0-2
 function randomMixer(state) {
 	state.mixerRandom = Math.floor(Math.random() * 3);
-	console.log(state.mixerRandom);
 };
-//triggers the random number generator and selects corresponding ingredient
-function chooseMixer(state, element) {
-	var mixerChoices = state.pantry;
-	setRoute(state, "question");
+//creates a random drink name for the bartender conconction
+function drinkNamer(state) {
+	randomNamer(state);
+	var drinkName = state.drinkName;
+	var drinkAdjective = state.cocktailAdjectives[state.namerRandom];
+	var drinkNoun = state.cocktailNouns[state.namerRandom];
+	state.drinkName = drinkAdjective + " " + drinkNoun;
+	console.log(state.drinkName);
 };
+
 //should take the mixerRandom array and choose one
 function renderMixerResult(state, element) {
 	var text = "mixer result";
@@ -156,7 +158,10 @@ function renderMixerResult(state, element) {
 };
 //displays name of mixed drink
 function displayMixedDrink(state, element) {
-	//uses namerRandom to select drinkAdjective and drinkNoun
+	drinkNamer(state);
+	var text = "Yer drink be ready.  Here's yer " + state.drinkName + ", ya parrot-lovin' scoundrel.  "  +
+	"It be made of a " + state.mixerTypes + ".";
+	element.text(text);
 };
 //moves through the questions and sets page_element
 function nextQuestion(state) {
@@ -206,12 +211,9 @@ function renderQuestionsPage(state, element) {
 };
 //function renders the drink page once all questions have been asked and answer
 function renderDrinkPage(state, element) {
-	var text = "Yer drink be ready.  Here's yer" + "drinkName" + ", ya parrot-lovin' scoundrel.  "  +
-	"It be made of a " + state.mixerTypes + ".";//separated list?	
 	displayMixedDrink(state, element.find(".drink_name"));
 	renderMixerResult(state, element.find(".drink_recipe"));
-	element.text(text);
-	console.log(state.mixerTypes);
+	console.log(state.drinkName);
 };
 //function renders the text that appears as the questions asked by the bartender
 function renderQuestionText(state, element) {
@@ -236,11 +238,6 @@ function renderNextButtonText(state, element) {
 	var text = state.currentQuestionIndex < state.questions.length -1 ? "Anymore questions, bartender?" : "Ok, mix me drink already!";
  	element.text(text);
 };
-// function displayMixedDrink(state, element) {
-//  	var drinkName = "";
-//  	var drinkText = ""
-// }
-
 //event listeners
 var page_elements = {
 	"start": $(".start_page"),
