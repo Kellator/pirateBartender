@@ -1,4 +1,4 @@
-"use strict";
+
 var state = {
 	questions: [
 	//liquor
@@ -59,15 +59,18 @@ var state = {
 	cocktailNouns: ["Sea Dog", "Cabin boy", "Cannon ball", "Cutlass", "Siren"], 
 
 	route: "start",
+
 	currentQuestionIndex: 0,
 	mixerRandom: 0,
 	namerRandom: 0,
 	drinkName: "",
-	lastQuestionAsked: false,
-	mixerTypes: [],
+	useMixer: false,
+	mixerTypes: [ ],
 	liquorMixer: ""
 };
-
+console.log(state.pantry.liquorIngredients.mixers[1]);
+console.log(state.mixerTypes);
+//access items in the pantry through above ^
 //constructor functions
 
 //questions constructor function (does this need to have index as an argument too?)
@@ -100,20 +103,40 @@ function resetBartender(state) {
 function logUserResponse(state, answer) {
 	var currentQuestion = state.questions[state.currentQuestionIndex];
 	var currentQuestionChoice =  currentQuestion.choices;
+	var index = parseInt(answer);
+	var mixerIngredients = state.pantry.liquorIngredients.mixers;
+	var mixerTypes = state.mixerTypes;
+	console.log(mixerTypes);
 	if (state.currentQuestionIndex === 0) {
-		console.log("I'm the first question");
+		console.log(mixerIngredients[index]);
+		console.log(index);
 		//needs to use logged response to select index of ingredients and push to mixerTypes list.
+		mixerTypes.push(mixerIngredients[index]);
+		
+		// switch(index)
+		// {
+		// 	case 0 : 
+		// 		mixerTypes.push(mixer);
+		// 		break;
+		// 	case 1 :
+		// 		mixerTypes.push(mixer);
+		// 		break;
+		// 	default:
+		// 		console.log("stop");
+
+		// };
 	}
 	else {
-		console.log("I'm another question");
 		//triggers randomizer function
-		if (parseInt(answer) === 0) {
+		if (index === 0) {
 			chooseMixer(state);
-			console.log("yes");
+			useMixer = true;
+			console.log(useMixer);
 		}
-		else if (parseInt(answer) === 1) {
+		else if (index === 1) {
+			useMixer = false;
 			setRoute(state,"question");
-			console.log("no");
+			console.log(useMixer);
 		}
 	}
 };
@@ -194,6 +217,7 @@ function renderDrinkPage(state, element) {
 	displayMixedDrink(state, element.find(".drink_name"));
 	renderMixerResult(state, element.find(".drink_recipe"));
 	element.text(text);
+	console.log(mixerTypes);
 };
 //function renders the text that appears as the questions asked by the bartender
 function renderQuestionText(state, element) {
@@ -248,7 +272,6 @@ $(document).ready(function() {
 	$("form[name='current_question']").submit(function(event) {
 		event.preventDefault();
 		var answer = $("input[name='user_answer']:checked").attr("value");
-		console.log(answer);
 		logUserResponse(state, answer);
 		nextQuestion(state);	
 		renderApp(state, page_elements);
