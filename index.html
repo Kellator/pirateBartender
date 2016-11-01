@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8" name="description" content= "Walk the Plank | Pirate Bar">
+	<title>Walk the Plank | Pirate Bar</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
+	<link rel=stylesheet" type="text/css" href="css/main.css">
+	<link href="https://fonts.googleapis.com/css?family=Carrois+Gothic+SC|Overlock+SC|Trade+Winds" rel="stylesheet">
+	<script src="node_modules/jquery/dist/jquery.js"></script>
+</head>
+<body>
+<!--start_page shows when page loads and if the game is reset-->
+	<div class="start_page">
+		<h1>Walk the Plank | Pirate Bar</h1>
+		<div class="welcome_panel">
+			<p class="welcome">Avast ye scurvy curs and welcome to Walk the Plank.  If you've got what it takes to stare down Davy Jones' and laugh in his salty ol' face, then step up t' the plank and name yer poison!</p>
+			<!--button will start the series of questions to combine ingredients for drink-->
+			<form name="start_mixing" class="start_questions">
+				<button class="start_button">First things first, Me-Bucko...</button>
+			</form>
+		</div>
+	</div>
+<!--friends_page to render first question in list which provides concrete options as opposed to executing a random mixer selector -->
+<!--questions_page presents with a list of choices for user to make regarding drink aspects-->
+	<div class="questions_page" style= "display:none;" >
+		<h3><span class="question_text"></span></h3>
+		<form name="current_question">
+			<ol class="choices"></ol>
+			<button type="submit" class="submit_choice">Mix me Grog!</button>
+		</form>
+	</div>
+<!--drinks_page displays mixed drink name and recipe.  Provides button to mix another drink-->
+	<div class="drink_page" style= "display:none;">
+		<h1>Bottoms Up!</h1>
+		<h3 class="drink_name"></h3>
+		<p class="drink_recipe"></p>
+		<button class="reset_questions">Mix Me Another, ye ol' Sea Dog!</button>
+	</div>
+
+
+<!--footer contains social media share buttons and contact info for creator-->
+	<footer>
+		<p>Walk the Plank | Pirate Bar developed by <a href="mailto:k.macleod21@gmail.com"> K.Miller</a></p>
+<!--social media share buttons-->		
+		<div id="share_buttons">
+			<!-- AddToAny BEGIN -->
+			<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+				<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+				<a class="a2a_button_facebook"></a>
+				<a class="a2a_button_twitter"></a>
+			</div>
+			<script async src="https://static.addtoany.com/menu/page.js"></script>
+			<!-- AddToAny END -->
+		</div>
+	</footer>
+<script type="text/javascript" src="app.js"></script>
+
+</body>
+</html>
