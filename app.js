@@ -57,9 +57,7 @@ var state = {
 	},
 	cocktailAdjectives: ["Drunken", "Crazy", "Dirty", "Sexy", "Sissy"],
 	cocktailNouns: ["Sea Dog", "Cabin boy", "Cannon ball", "Cutlass", "Siren"], 
-
 	route: "start",
-
 	currentQuestionIndex: 0,
 	mixerRandom: 0,
 	namerRandom: 0,
@@ -149,7 +147,6 @@ function drinkNamer(state) {
 	state.drinkName = drinkAdjective + " " + drinkNoun;
 	console.log(state.drinkName);
 };
-
 //should take the mixerRandom array and choose one
 function renderMixerResult(state, element) {
 	var text = "mixer result";
@@ -173,7 +170,6 @@ function nextQuestion(state) {
 		setRoute(state, "question");
 	}
 };
-
 //render functions
 //renderApp defaults to hide all routes and shows only the current route
 function renderApp(state, elements) {
@@ -268,5 +264,3 @@ $(document).ready(function() {
 		renderApp(state, page_elements);
 	});
 });
-//document ready function - encasing events within the doc ready or having it at the end work the same
-// $(function() {renderApp(state, page_elements);});
