@@ -1,7 +1,7 @@
 
 var state = {
 	questions: [
-	//liquor
+		//liquor
 		new Question("Which friend are ye drinking with tonight?",
 			["I'm sailin' with the Captain", "Ah! Mi Amigo es Jose'", "Me buddy Jack and I are passing through on our way to Tennessee", "Goose is my first-mate tonight", "Have ye met me ol' lady, Shirley?"]),
 		//ice
@@ -20,7 +20,7 @@ var state = {
 		new Question("Are ye a scallywag who likes a little extra booty to decorate yer drink?",
 			["Aye. load 'er up!", "No! Don't you be scuttlin' me drink with your garrrrnishes!"]),
 	],
-//creates pantry and fills with ingredients for each type of mixer 
+	//creates pantry and fills with ingredients for each type of mixer 
 	pantry: {
 		liquorIngredients: new Ingredients([
 			"Swig of Rum", 
@@ -106,7 +106,7 @@ function logUserResponse(state, answer) {
 		mixerTypes.push(mixerIngredients[index]);
 	}
 	else {
-			//triggers randomizer function
+		//triggers randomizer function
 		if (index === 0) {
 			randomMixer(state);
 			if (state.currentQuestionIndex === 1) {
